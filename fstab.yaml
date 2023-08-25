@@ -1,2 +1,5 @@
 mountpoints:
-  /: https://adobe.sharepoint.com/:f:/r/sites/HelixProjects/Shared%20Documents/sites/adobe/wknd
+  /:
+    url: https://245265-xwalk-wknd.adobeioruntime.net/api/v1/web/franklin/convert/
+    type: markup
+    suffix: ".html"
