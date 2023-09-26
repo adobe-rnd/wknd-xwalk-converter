@@ -1,0 +1,5 @@
+mappings:
+  - /content/wknd/us/en:/
+
+includes:
+  - /content/wknd/us/en

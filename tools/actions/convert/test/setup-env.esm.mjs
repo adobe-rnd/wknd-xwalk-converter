@@ -9,22 +9,8 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import { EXIT, visit } from 'unist-util-visit';
 
-export function replace(tree, oldNode, newNode) {
-  // $table.parentNode.replaceChild($div, $table);
-  // replace child in parent
-  visit(tree, oldNode, (node, idx, parent) => {
-    parent.children[idx] = newNode;
-    return EXIT;
-  });
-}
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
 
-export function childNodes(node) {
-  return node.children.filter((n) => n.type === 'element');
-}
-
-export function wrapContent($parent, $node) {
-  $parent.children.push(...$node.children);
-  $node.children = [$parent];
-}
+global.__testdir = resolve(fileURLToPath(import.meta.url), '..');

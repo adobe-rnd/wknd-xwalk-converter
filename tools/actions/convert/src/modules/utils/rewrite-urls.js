@@ -11,25 +11,33 @@
  */
 
 import { CONTINUE, visit } from 'unist-util-visit';
+import { mapOutbound } from '../mapping.js';
 
-function rewriteUrl(content, url) {
-  const { host } = content;
-  if (!url || !url.startsWith('/')) {
+function rewriteUrl(content, url, tagName) {
+  const { aemURL, publicURL } = content;
+
+  if (!url || (!url.startsWith('/') && !url.startsWith(publicURL))) {
     return url;
   }
 
-  return `${host}${url.substring(1)}`;
+  let attr = url;
+  if (url.startsWith(publicURL) && tagName === 'a') {
+    attr = `${mapOutbound(url.substring(publicURL.length - 1))}.html`;
+  }
+
+  return tagName === 'img' ? `${aemURL}${attr.substring(1)}` : attr;
 }
 
 /**
  * Rewrites all A and IMG urls
  * @param {PipelineState} state
  */
-export default async function rewriteUrls({content}) {
+export default async function rewriteUrls({ content }) {
   const { hast } = content;
 
   const els = {
     img: 'src',
+    a: 'href',
   };
 
   visit(hast, (node) => {
@@ -38,7 +46,7 @@ export default async function rewriteUrls({content}) {
     }
     const attr = els[node.tagName];
     if (attr) {
-      node.properties[attr] = rewriteUrl(content, node.properties[attr]);
+      node.properties[attr] = rewriteUrl(content, node.properties[attr], node.tagName);
     }
     return CONTINUE;
   });
