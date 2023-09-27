@@ -1,5 +1,8 @@
 mappings:
   - /content/wknd/us/en:/
+  - /content/experience-fragments/wknd/language-masters/en/site/:/fragments/
 
 includes:
   - /content/wknd/us/en
+  - /content/experience-fragments/wknd/language-masters/en/site/header/master
+  - /content/experience-fragments/wknd/language-masters/en/site/footer/master

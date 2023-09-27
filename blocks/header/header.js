@@ -20,7 +20,7 @@ export default async function decorate(block) {
   // fetch nav content
   const navPath = window.wknd.demoConfig.demoBase || '';
 
-  const resp = await fetch(`${navPath}/nav.plain.html`, window.location.pathname.endsWith('/nav') ? { cache: 'reload' } : {});
+  const resp = await fetch('/fragments/header/master.plain.html');
   if (resp.ok) {
     const html = await resp.text();
 

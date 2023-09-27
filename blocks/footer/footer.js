@@ -8,7 +8,7 @@ import { decorateIcons } from '../../scripts/lib-franklin.js';
 export default async function decorate(block) {
   const navPath = window.wknd.demoConfig.demoBase || '';
 
-  const resp = await fetch(`${navPath}/footer.plain.html`, window.location.pathname.endsWith('/footer') ? { cache: 'reload' } : {});
+  const resp = await fetch('/fragments/footer/master.plain.html');
   if (resp.ok) {
     block.textContent = '';
 
