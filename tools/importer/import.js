@@ -39,6 +39,28 @@ const createMetadata = (main, document) => {
   return meta;
 };
 
+const createCarousel = (main, document) => {
+  const carouselItems = [];
+
+  const carousel = document.querySelector('.carousel');
+  if (carousel) {
+    const items = carousel.querySelectorAll('.cmp-carousel__item');
+    items.forEach((item) => {
+      const img = item.querySelector('img');
+      const text = item.querySelector('.cmp-teaser__content');
+      if (img && text) {
+        carouselItems.push([img, text]);
+      }
+    });
+    const cells = [
+      ['Carousel'],
+      ...carouselItems
+    ];
+    const block = WebImporter.DOMUtils.createTable(cells, document);
+    main.prepend(block);
+  }
+};
+
 export default {
   /**
    * Apply DOM operations to the provided document and return
@@ -55,6 +77,7 @@ export default {
   }) => {
     // define the main element: the one that will be transformed to Markdown
     const main = document.body;
+    createCarousel(main, document);
 
     // use helper method to remove header, footer, etc.
     WebImporter.DOMUtils.remove(main, [
